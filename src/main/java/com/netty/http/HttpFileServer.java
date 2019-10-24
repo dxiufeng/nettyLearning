@@ -42,7 +42,7 @@ public class HttpFileServer {
                             ch.pipeline().addLast("http-chunked",new ChunkedWriteHandler());
 
                             //文件服务器业务逻辑处理
-                            ch.pipeline().addLast("fileServerHandler",new HttpFileServerHandler(url));
+                            ch.pipeline().addLast("fileServerHandler",new HttpFileServerHandler(/*url*/));
 
 
                         }
