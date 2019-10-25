@@ -9,6 +9,7 @@ import java.util.ArrayList;
 public class SubReqClientHandler extends ChannelHandlerAdapter {
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
+        System.out.println("喜欢发送消息");
         for (int i = 0; i < 10; i++) {
             ctx.write(subReq(i));
         }

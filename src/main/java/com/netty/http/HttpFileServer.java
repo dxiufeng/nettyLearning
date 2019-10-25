@@ -13,7 +13,7 @@ import io.netty.handler.stream.ChunkedWriteHandler;
 
 public class HttpFileServer {
 
-    private static final String DEFAULT_URL="/src/com/netty";
+    private static final String DEFAULT_URL="/src/main/java/com/netty/http/";
 
     public void run(final int port,final String url){
 
@@ -33,7 +33,7 @@ public class HttpFileServer {
 
 
                             //HttpObjectAggregator 解码器,作用: 将多个消息转换为单一的FullHttpRequest或者FullHttpResponse,原因: http解码器在每个http消息中会生成多个消息对象
-                            ch.pipeline().addLast("http-aggregator",new HttpObjectAggregator(65536));
+                            ch.pipeline().addLast("http-aggregator",new HttpObjectAggregator(65536));//2^16
 
                             //http响应编码器,对http响应消息进行编码
                             ch.pipeline().addLast("http-encoder",new HttpResponseEncoder());
@@ -42,15 +42,15 @@ public class HttpFileServer {
                             ch.pipeline().addLast("http-chunked",new ChunkedWriteHandler());
 
                             //文件服务器业务逻辑处理
-                            ch.pipeline().addLast("fileServerHandler",new HttpFileServerHandler(/*url*/));
+                            ch.pipeline().addLast("fileServerHandler",new HttpFileServerHandler(url));
 
 
                         }
                     });
 
 
-            ChannelFuture f = b.bind("192.168.1.102", port).sync();
-            System.out.println("http 文件目录服务器启动,网址是: "+"http://192.168.1.102:"+port+url);
+            ChannelFuture f = b.bind("localhost", port).sync();
+            System.out.println("http 文件目录服务器启动,网址是: "+"http://localhost:"+port+url);
             f.channel().closeFuture().sync();
 
         } catch (Exception e) {
