@@ -71,6 +71,7 @@ public class HttpFileServerHandler extends SimpleChannelInboundHandler<FullHttpR
         //如果不是个文件,返回403
         if (!file.isFile()) {
             sendError(ctx, FORBIDDEN);
+            return;
         }
 
         RandomAccessFile randomAccessFile = null;
@@ -79,7 +80,7 @@ public class HttpFileServerHandler extends SimpleChannelInboundHandler<FullHttpR
 
         } catch (FileNotFoundException e) {
             sendError(ctx, NOT_FOUND);
-            return;
+
 
         }
         //获取文件长度

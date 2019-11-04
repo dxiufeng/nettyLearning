@@ -13,7 +13,7 @@ import io.netty.handler.stream.ChunkedWriteHandler;
 
 public class HttpFileServer {
 
-    private static final String DEFAULT_URL="/src/main/java/com/netty/http/";
+    private static final String DEFAULT_URL="/src/main/java/com/netty/";
 
     public void run(final int port,final String url){
 
